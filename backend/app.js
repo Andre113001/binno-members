@@ -1,25 +1,25 @@
 import express from 'express'
-import {getNotes, getNote, createNote} from './db.js'
+import {login, register, getAccount} from './db.js'
 
 const app = express()
 
 app.use(express.json())
 
-app.get("/notes", async (req, res) => {
-  const notes = await getNotes()
-  res.send(notes)
+app.get("/login", async (req, res) => {
+  const attemtptLogin = await login()
+  res.send(attemtptLogin)
 })
 
-app.get("/notes/:id", async (req, res) => {
-  const id = req.params.id
-  const note = await getNote(id)
-  res.send(note)
+app.post("/register", async(req, res) => {
+  const {email, password, name} = req.body
+  const attemptRegister = await register(email, password, name)
+  res.status(201).send(attemptRegister)
 })
 
-app.post("/notes", async (req, res) => {
-  const {title, contents} = req.body
-  const note = await createNote(title, contents)
-  res.status(201).send(note)
+app.get("/user/:userId", async(req,res) => {
+  const userId = req.params.userId
+  const getUser = await getAccount(userId)
+  res.send(getUser)
 })
 
 app.use((err, req, res, next) => {
