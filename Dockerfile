@@ -7,8 +7,10 @@ COPY frontend/package.json frontend/package-lock.json ./
 
 RUN npm install
 
+CMD [ "npm", "run", "dev"]
+
 # Stage 2: Build backend
-FROM node:20-alpine3.174 AS backend
+FROM node:20-alpine3.17 AS backend
 
 WORKDIR /app/backend
 
@@ -17,7 +19,7 @@ COPY backend/package.json backend/package-lock.json ./
 RUN npm install
 
 # Stage 3: Final image
-FROM node:14
+FROM node:20-alpine3.17
 
 WORKDIR /app
 
@@ -27,4 +29,5 @@ COPY backend/ ./backend/
 
 # Add any other setup or configuration steps here
 
-CMD [ "npm", "start" ]
+
+`
