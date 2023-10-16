@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.heading-1 {
+    @apply text-3xl font-bold;
+}
+
+.heading-2 {
+    @apply text-xl font-bold;
+}
